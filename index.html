@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat GPT API 프로젝트</title>
+    <!-- 스타일 시트 연결 -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>일본어 단어 추출 및 독음, 뜻 표시 프로젝트</h1>
+    </header>
+
+    <main>
+      <section class="input-section">
+        <h2>일본어 문장 입력</h2>
+        <!-- 텍스트 입력을 위한 텍스트 에리어 -->
+        <textarea id="inputText" rows="4" cols="50" placeholder="일본어 문장을 입력하세요"></textarea>
+        <!-- 버튼을 클릭하여 처리 시작 -->
+        <button id="processButton">처리 시작</button>
+      </section>
+
+      <section class="output-section">
+        <h2>단어 독음과 뜻</h2>
+        <!-- 결과를 표시할 영역 -->
+        <div id="result"></div>
+      </section>
+    </main>
+
+    <!-- JavaScript 파일 연결 -->
+    <script src="index.js"></script>
+  </body>
+</html>
