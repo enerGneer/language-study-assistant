@@ -19,6 +19,16 @@ app.post("/api/interactWithChatGPT", async (req, res) => {
     // 요청 본문을 JSON으로 파싱하여 데이터 추출
     const userInput = req.body.userInput;
 
+    // franc를 사용하여 언어 감지
+    const detectedLanguage = franc(userInput, { minLength: 3 });
+
+    let contentMessage;
+    if (detectedLanguage === "jpn") {
+      contentMessage = "나는 일본어 학습자야. 이 문장에서 일본어 단어들만 따로 발췌해서 [일본어 단어 : 히라가나 독음, 한국어 뜻, 예문] 이런 양식으로 작성해줘.모든 예문은 주어진 텍스트를 그대로 발췌하지 말고 활용 사례를 작문해줘.";
+    } else {
+      contentMessage = "나는 언어 학습자야. 이 문장에서 단어들만 따로 발췌해서 [단어 : 한국어 뜻, 예문] 이런 양식으로 작성해줘.모든 예문은 주어진 텍스트를 그대로 발췌하지 말고 활용 사례를 작문해줘.";
+    }
+
     const response = await axios.post(
       url,
       {
@@ -26,7 +36,7 @@ app.post("/api/interactWithChatGPT", async (req, res) => {
         messages: [
           {
             role: "system",
-            content: "나는 일본어 학습자야. 이 문장에서 일본어 단어들만 따로 발췌해서 [일본어 단어 : 히라가나 독음, 한국어 뜻, 예문] 이런 양식으로 작성해줘.모든 예문은 주어진 텍스트를 그대로 발췌하지 말고 활용 사례를 작문해줘.",
+            content: contentMessage,
           },
           { role: "user", content: userInput },
         ],
