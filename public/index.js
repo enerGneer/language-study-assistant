@@ -1,19 +1,28 @@
 const inputText = document.getElementById("inputText");
 const processButton = document.getElementById("processButton");
 const resultContents = document.getElementById("result");
+const modalElement = document.getElementById("inputRequestModal");
+const modalContents = document.getElementById("modalContents");
+const loading = document.getElementById("loading");
 
-// 모달 열기
+const url = "http://localhost:3000/api/interactWithChatGPT";
+
 function openModal(message) {
-  const modal = document.getElementById("inputRequestModal");
-  const modalMessage = document.getElementById("modalMessage");
-  modalMessage.textContent = message;
-  modal.style.display = "block";
+  modalElement.classList.remove("hidden");
 }
 
-// 모달 닫기
 function closeModal() {
-  const modal = document.getElementById("inputRequestModal");
-  modal.style.display = "none";
+  modalElement.classList.add("hidden");
+}
+
+// 로딩 시작
+function showLoading() {
+  loading.classList.remove("hidden");
+}
+
+// 로딩 완료
+function hideLoading() {
+  loading.classList.add("hidden");
 }
 
 // 버튼 클릭 이벤트 리스너
@@ -21,12 +30,14 @@ processButton.addEventListener("click", async () => {
   const userInput = inputText.value;
 
   if (!userInput) {
-    openModal("입력된 내용이 없습니다. 텍스트를 입력해주세요.");
+    openModal();
     return;
   }
 
+  showLoading(); // 로딩 시작
+
   try {
-    const response = await fetch("http://localhost:3000/api/interactWithChatGPT", {
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,9 +48,6 @@ processButton.addEventListener("click", async () => {
     if (response.status === 200) {
       const data = await response.json();
       const answer = data.answer;
-      const requestBody = JSON.stringify({ userInput });
-
-      console.log("요청 본문:", requestBody);
       resultContents.innerHTML = `${answer.replace(/\n/g, "<br>")}`;
     } else {
       console.error("ChatGPT API 요청 실패:", response.statusText);
@@ -48,17 +56,23 @@ processButton.addEventListener("click", async () => {
   } catch (error) {
     console.error("ChatGPT API 요청 실패:", error.message);
     alert("ChatGPT API 요청 실패");
+  } finally {
+    hideLoading(); // 로딩 완료
   }
 });
 
 // 모달 닫기 버튼 설정
-const closeBtn = document.querySelector(".close");
+const closeBtn = document.querySelector("#close");
 closeBtn.addEventListener("click", closeModal);
 
-// 모달 외부 클릭 시 모달 닫기
-window.addEventListener("click", (event) => {
-  const modal = document.getElementById("inputRequestModal");
-  if (event.target === modal) {
+// 모달 바깥 영역 클릭 시 닫기
+modalElement.addEventListener("click", (event) => {
+  if (event.target === modalElement) {
     closeModal();
   }
+});
+
+// 모달 내용 영역 클릭 시 이벤트 전파 방지
+modalContents.addEventListener("click", (event) => {
+  event.stopPropagation();
 });

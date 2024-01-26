@@ -1,38 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chat GPT API 프로젝트</title>
-    <!-- 스타일 시트 연결 -->
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../src/output.css" />
   </head>
-  <body>
-    <div id="inputRequestModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <p id="modalMessage">입력된 내용이 없습니다. 텍스트를 입력해주세요.</p>
+  <body class="bg-gray-100">
+    <div id="loading" class="relative z-10 hidden" aria-labelledby="loading" role="dialog" aria-modal="true">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+      <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all my-6 sm:my-8 sm:w-full sm:max-w-md">
+            <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+              <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full">
+                <svg class="w-7 h-7 text-gray-300 animate-spin" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                  <path
+                    d="M32 3C35.8083 3 39.5794 3.75011 43.0978 5.20749C46.6163 6.66488 49.8132 8.80101 52.5061 11.4939C55.199 14.1868 57.3351 17.3837 58.7925 20.9022C60.2499 24.4206 61 28.1917 61 32C61 35.8083 60.2499 39.5794 58.7925 43.0978C57.3351 46.6163 55.199 49.8132 52.5061 52.5061C49.8132 55.199 46.6163 57.3351 43.0978 58.7925C39.5794 60.2499 35.8083 61 32 61C28.1917 61 24.4206 60.2499 20.9022 58.7925C17.3837 57.3351 14.1868 55.199 11.4939 52.5061C8.801 49.8132 6.66487 46.6163 5.20749 43.0978C3.7501 39.5794 3 35.8083 3 32C3 28.1917 3.75011 24.4206 5.2075 20.9022C6.66489 17.3837 8.80101 14.1868 11.4939 11.4939C14.1868 8.80099 17.3838 6.66487 20.9022 5.20749C24.4206 3.7501 28.1917 3 32 3L32 3Z"
+                    stroke="currentColor"
+                    stroke-width="5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                  <path
+                    d="M32 3C36.5778 3 41.0906 4.08374 45.1692 6.16256C49.2477 8.24138 52.7762 11.2562 55.466 14.9605C58.1558 18.6647 59.9304 22.9531 60.6448 27.4748C61.3591 31.9965 60.9928 36.6232 59.5759 40.9762"
+                    stroke="currentColor"
+                    stroke-width="5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="text-slate-800"></path>
+                </svg>
+              </div>
+              <div class="mt-3 text-center">
+                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Loading...</h3>
+                <div class="mt-2 mb-5">
+                  <p class="text-sm text-gray-500">문장에서 단어를 추출하고 있습니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="inputRequestModal" class="relative z-10 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+      <!--
+    Background backdrop, show/hide based on modal state.
+
+    Entering: "ease-out duration-300"
+      From: "opacity-0"
+      To: "opacity-100"
+    Leaving: "ease-in duration-200"
+      From: "opacity-100"
+      To: "opacity-0"
+  -->
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+      <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <!--
+        Modal panel, show/hide based on modal state.
+
+        Entering: "ease-out duration-300"
+          From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          To: "opacity-100 translate-y-0 sm:scale-100"
+        Leaving: "ease-in duration-200"
+          From: "opacity-100 translate-y-0 sm:scale-100"
+          To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+      -->
+          <div id="modalContents" class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all my-6 sm:my-8 sm:w-full sm:max-w-lg">
+            <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+              <div class="sm:flex sm:items-start">
+                <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                  <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                  </svg>
+                </div>
+                <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                  <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">텍스트를 입력해주세요</h3>
+                  <div class="mt-2">
+                    <p class="text-sm text-gray-500">입력된 내용이 없습니다. 텍스트를 입력해주세요.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+              <!-- <button type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Deactivate</button> -->
+              <button type="button" id="close" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Close</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
     <header>
-      <h1>일본어 단어 추출 및 독음, 뜻 표시 프로젝트</h1>
+      <h1 class="text-3xl m-3">입력한 문장에서 단어를 추출해 독음과 뜻을 알려줍니다.</h1>
     </header>
 
     <main>
-      <section class="input-section">
-        <h2>일본어 문장 입력</h2>
-        <!-- 텍스트 입력을 위한 텍스트 에리어 -->
-        <textarea id="inputText" rows="4" cols="50" placeholder="일본어 문장을 입력하세요"></textarea>
-        <!-- 버튼을 클릭하여 처리 시작 -->
-        <button id="processButton">처리 시작</button>
-      </section>
+      <div class="flex flex-col flex-wrap lg:flex-row m-3 max-w-7xl justify-cente mx-auto">
+        <section class="input-section bg-white flex-1 flex flex-col m-10 rounded-lg p-10 shadow-xl shadow-slate-200 max-h-96">
+          <hgroup class="flex-1 mb-3">
+            <h2 class="text-3xl font-extrabold mb-2 text-slate-800">Step 1. 입력하기</h2>
+            <h3 class="text-slate-400 text-lg font-semibold mb-1">문장을 입력한 후 하단의 버튼을 클릭하세요.</h3>
+          </hgroup>
+          <!-- 텍스트 입력을 위한 텍스트 에리어 -->
+          <textarea id="inputText" rows="10" placeholder="여기에 문장을 입력하세요." class="rounded-sm w-full bg-gray-50 p-3 text-gray-900 border border-gray-300 focus:border-slate-500 outline-0 focus:border-2"></textarea>
+          <!-- 버튼을 클릭하여 처리 시작 -->
+          <button id="processButton" class="flex-1 w-full mt-6 px-3 py-3 font-bold text-lg bg-slate-600 rounded-sm text-slate-100 shadow-sm hover:bg-slate-700 transition-colors">단어 추출하기</button>
+        </section>
 
-      <section class="output-section">
-        <h2>단어 독음과 뜻</h2>
-        <!-- 결과를 표시할 영역 -->
-        <div id="result"></div>
-      </section>
+        <section class="output-section bg-white flex-1 flex flex-col m-10 rounded-lg p-10 shadow-xl shadow-slate-200">
+          <hgroup class="mb-3">
+            <h2 class="text-3xl font-extrabold mb-2 text-slate-800">Step 2. 결과보기</h2>
+            <h3 class="text-slate-400 text-lg font-semibold mb-1">단어의 독음/의미/예문이 아래에 표시됩니다.</h3>
+          </hgroup>
+
+          <!-- 결과를 표시할 영역 -->
+          <div id="result" class="pl-4 py-2 border-l-4">
+            <p>단어 (독음) : 의미<br />예문</p>
+          </div>
+        </section>
+      </div>
     </main>
 
     <!-- JavaScript 파일 연결 -->
