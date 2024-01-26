@@ -1,10 +1,10 @@
 const inputText = document.getElementById("inputText");
 const processButton = document.getElementById("processButton");
-const outputDiv = document.getElementById("result");
+const resultContents = document.getElementById("result");
 
 // 모달 열기
 function openModal(message) {
-  const modal = document.getElementById("myModal");
+  const modal = document.getElementById("inputRequestModal");
   const modalMessage = document.getElementById("modalMessage");
   modalMessage.textContent = message;
   modal.style.display = "block";
@@ -12,7 +12,7 @@ function openModal(message) {
 
 // 모달 닫기
 function closeModal() {
-  const modal = document.getElementById("myModal");
+  const modal = document.getElementById("inputRequestModal");
   modal.style.display = "none";
 }
 
@@ -40,7 +40,7 @@ processButton.addEventListener("click", async () => {
       const requestBody = JSON.stringify({ userInput });
 
       console.log("요청 본문:", requestBody);
-      outputDiv.innerHTML = `${answer.replace(/\n/g, "<br>")}`;
+      resultContents.innerHTML = `${answer.replace(/\n/g, "<br>")}`;
     } else {
       console.error("ChatGPT API 요청 실패:", response.statusText);
       alert("ChatGPT API 요청 실패");
@@ -57,7 +57,7 @@ closeBtn.addEventListener("click", closeModal);
 
 // 모달 외부 클릭 시 모달 닫기
 window.addEventListener("click", (event) => {
-  const modal = document.getElementById("myModal");
+  const modal = document.getElementById("inputRequestModal");
   if (event.target === modal) {
     closeModal();
   }
