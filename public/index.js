@@ -3,105 +3,88 @@ const processButton = document.getElementById("processButton");
 const resultContents = document.getElementById("result");
 const modalContents = document.getElementById("modalContents");
 const loading = document.getElementById("loading");
+const copyButton = document.getElementById("copyButton");
+const textarea = document.getElementById("inputText");
 
 const url = "http://localhost:3000/api/interactWithChatGPT";
 
 // textarea 크기 자동조절
-// Select the textarea element
-const textarea = document.getElementById("inputText");
-
-// Function to adjust the height
-function adjustHeight() {
+function adjustTextareaHeight() {
   // Reset the height
   textarea.style.height = "auto";
   // Set the height to scroll height to expand as needed
   textarea.style.height = `${textarea.scrollHeight}px`;
 }
 
-// Add event listener for input event
-textarea.addEventListener("input", adjustHeight);
-
-// Adjust height initially
-adjustHeight();
+// 이벤트 리스너 설정
+function setupEventListeners() {
+  textarea.addEventListener("input", adjustTextareaHeight);
+  copyButton.addEventListener("click", copyResultToClipboard);
+  processButton.addEventListener("click", processUserInput);
+}
 
 // 복사 기능
 function copyResultToClipboard() {
-  // 결과 텍스트를 가져옴
-  const resultText = resultContents.textContent;
-
-  // Clipboard API를 사용하여 결과 텍스트를 클립보드에 복사
   navigator.clipboard
-    .writeText(resultText)
-    .then(function () {
-      // 복사 성공 시 플로팅 메시지 표시
-      const copySuccessMessage = document.getElementById("copySuccessMessage");
-      copySuccessMessage.classList.remove("opacity-0"); // 투명도를 0에서 1로 변경하여 나타남
-
-      // 2초 후에 플로팅 메시지 숨김
-      setTimeout(function () {
-        copySuccessMessage.classList.add("opacity-0"); // 투명도를 1에서 0으로 변경하여 사라짐
-      }, 2000);
-    })
-    .catch(function (err) {
-      // 복사 실패 시 오류 메시지 출력
-      console.error("클립보드 복사 실패:", err);
-    });
+    .writeText(resultContents.textContent)
+    .then(() => toggleFloatingMessage("copySuccessMessage", true))
+    .catch((err) => console.error("클립보드 복사 실패:", err));
 }
 
-// 복사 버튼 요소 가져오기
-const copyButton = document.getElementById("copyButton");
-
-// 복사 버튼에 클릭 이벤트 리스너 추가
-copyButton.addEventListener("click", copyResultToClipboard);
-
-// 로딩 시작
-function showLoading() {
-  loading.classList.remove("hidden");
+// 플로팅 메시지 토글
+function toggleFloatingMessage(elementId, show) {
+  const element = document.getElementById(elementId);
+  if (show) {
+    element.classList.remove("opacity-0");
+    setTimeout(() => element.classList.add("opacity-0"), 2000);
+  } else {
+    element.classList.add("opacity-0");
+  }
 }
 
-// 로딩 완료
-function hideLoading() {
-  loading.classList.add("hidden");
+// 로딩 표시 토글
+function toggleLoading(show) {
+  if (show) {
+    loading.classList.remove("hidden");
+  } else {
+    loading.classList.add("hidden");
+  }
 }
 
-// 버튼 클릭 이벤트 리스너
-processButton.addEventListener("click", async () => {
+// 사용자 입력 처리
+async function processUserInput() {
   const userInput = inputText.value;
-
   if (!userInput) {
-    // 입력된 내용이 없을 때 inputRequestMessage를 나타나도록 설정
-    const inputRequestMessage = document.getElementById("inputRequestMessage");
-    inputRequestMessage.classList.remove("opacity-0"); // 투명도를 0에서 1로 변경하여 나타남
-    // 2초 후에 플로팅 메시지 숨김
-    setTimeout(function () {
-      inputRequestMessage.classList.add("opacity-0"); // 투명도를 1에서 0으로 변경하여 사라짐
-    }, 2000);
+    toggleFloatingMessage("inputRequestMessage", true);
     return;
   }
 
-  showLoading(); // 로딩 시작
-
+  toggleLoading(true); // 로딩 시작
   try {
     const response = await fetch(url, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userInput }),
     });
 
-    if (response.status === 200) {
+    if (response.ok) {
       const data = await response.json();
-      const answer = data.answer;
-      resultContents.innerHTML = `${answer.replace(/\n/g, "<br>")}`;
+      resultContents.innerHTML = data.answer.replace(/\n/g, "<br>");
     } else {
-      console.error("ChatGPT API 요청 실패:", response.statusText);
-      alert("ChatGPT API 요청 실패");
+      throw new Error(`ChatGPT API 요청 실패: ${response.statusText}`);
     }
   } catch (error) {
-    console.error("ChatGPT API 요청 실패:", error.message);
-    alert("ChatGPT API 요청 실패");
+    console.error(error.message);
+    alert(error.message);
   } finally {
-    hideLoading(); // 로딩 완료
+    toggleLoading(false); // 로딩 완료
   }
-});
+}
+
+// 초기화
+function initialize() {
+  adjustTextareaHeight();
+  setupEventListeners();
+}
+
+initialize();
