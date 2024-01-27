@@ -1,7 +1,6 @@
 const inputText = document.getElementById("inputText");
 const processButton = document.getElementById("processButton");
 const resultContents = document.getElementById("result");
-const modalElement = document.getElementById("inputRequestModal");
 const modalContents = document.getElementById("modalContents");
 const loading = document.getElementById("loading");
 
@@ -25,7 +24,6 @@ textarea.addEventListener("input", adjustHeight);
 // Adjust height initially
 adjustHeight();
 
-// 복사 기능
 // 복사 기능
 function copyResultToClipboard() {
   // 결과 텍스트를 가져옴
@@ -56,15 +54,6 @@ const copyButton = document.getElementById("copyButton");
 // 복사 버튼에 클릭 이벤트 리스너 추가
 copyButton.addEventListener("click", copyResultToClipboard);
 
-// 모달
-function openModal(message) {
-  modalElement.classList.remove("hidden");
-}
-
-function closeModal() {
-  modalElement.classList.add("hidden");
-}
-
 // 로딩 시작
 function showLoading() {
   loading.classList.remove("hidden");
@@ -80,7 +69,13 @@ processButton.addEventListener("click", async () => {
   const userInput = inputText.value;
 
   if (!userInput) {
-    openModal();
+    // 입력된 내용이 없을 때 inputRequestMessage를 나타나도록 설정
+    const inputRequestMessage = document.getElementById("inputRequestMessage");
+    inputRequestMessage.classList.remove("opacity-0"); // 투명도를 0에서 1로 변경하여 나타남
+    // 2초 후에 플로팅 메시지 숨김
+    setTimeout(function () {
+      inputRequestMessage.classList.add("opacity-0"); // 투명도를 1에서 0으로 변경하여 사라짐
+    }, 2000);
     return;
   }
 
@@ -109,20 +104,4 @@ processButton.addEventListener("click", async () => {
   } finally {
     hideLoading(); // 로딩 완료
   }
-});
-
-// 모달 닫기 버튼 설정
-const closeBtn = document.querySelector("#close");
-closeBtn.addEventListener("click", closeModal);
-
-// 모달 바깥 영역 클릭 시 닫기
-modalElement.addEventListener("click", (event) => {
-  if (event.target === modalElement) {
-    closeModal();
-  }
-});
-
-// 모달 내용 영역 클릭 시 이벤트 전파 방지
-modalContents.addEventListener("click", (event) => {
-  event.stopPropagation();
 });
