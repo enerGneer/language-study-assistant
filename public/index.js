@@ -1,12 +1,11 @@
 const inputText = document.getElementById("inputText");
 const processButton = document.getElementById("processButton");
 const resultContents = document.getElementById("result");
-const modalContents = document.getElementById("modalContents");
 const loading = document.getElementById("loading");
 const copyButton = document.getElementById("copyButton");
 const textarea = document.getElementById("inputText");
 
-const url = "http://localhost:3000/api/interactWithChatGPT";
+const url = "https://altaj32ltsje245bwsrj7jnxgm0iuyks.lambda-url.ap-northeast-1.on.aws/";
 
 // textarea 크기 자동조절
 function adjustTextareaHeight() {
