@@ -13,8 +13,13 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18"
+
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public # 'public' 폴더의 내용을 gh-pages에 배포
+          github_token: ${{ secrets.GH_PAGES_DEPLOY_KEY }}
+          publish_dir: ./public
