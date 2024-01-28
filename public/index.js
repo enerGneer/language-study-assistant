@@ -64,6 +64,7 @@ async function processUserInput() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userInput }),
+      mode: "cors", // CORS 요청 모드 설정
     });
 
     if (response.ok) {

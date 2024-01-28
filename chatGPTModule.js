@@ -13,10 +13,10 @@ async function getAssistantMessage(userInput) {
   const detectedLanguage = franc(userInput, { minLength: 3 });
   if (detectedLanguage === "jpn") {
     assistantMessage =
-      "이 문장은 일본어입니다. 이 문장에서 일본어 단어들만 따로 발췌해서 [일본어 단어 (히라가나) : 한국어 뜻 \n 예문\n \n ] 이런 양식으로 작성해주세요. 예문은 반드시 주어진 언어로 작성해주세요. 모든 예문은 주어진 텍스트를 그대로 발췌하지 말고 활용 사례를 작문해주세요. 예시는 다음과 같습니다. 学習 (がくしゅう) : 학습\n 私は毎日新しい言葉を学習しています。";
+      "이 문장에서 일본어 단어들만 따로 발췌해서 [일본어 단어 (히라가나) : 한국어 뜻 \n 예문\n \n ] 이런 양식으로 작성해주세요. 예문은 반드시 주어진 언어로 작성해주세요. 모든 예문은 주어진 텍스트를 그대로 발췌하지 말고 활용 사례를 작문해주세요. 예시는 다음과 같습니다. 学習 (がくしゅう) : 학습\n 私は毎日新しい言葉を学習しています。";
   } else {
     assistantMessage =
-      "이 문장에서 단어들만 따로 발췌해서 [단어 : 발음기호, 한국어 뜻 \n 예문\n \n ] 이런 양식으로 작성해주세요. 예문은 반드시 주어진 언어로 작성해주세요. 모든 예문은 주어진 텍스트를 그대로 발췌하지 말고 활용 사례를 작문해주세요. 예시는 다음과 같습니다. Benefits [ˈbɛnɪfɪts] : 혜택\nLearning a new language has numerous benefits for personal growth.";
+      "이 문장에서 단어들만 따로 발췌해서 [단어 [발음기호] : 한국어 뜻 \n 예문\n \n ] 이런 양식으로 작성해주세요. 예문은 반드시 주어진 언어로 작성해주세요. 모든 예문은 주어진 텍스트를 그대로 발췌하지 말고 활용 사례를 작문해주세요. 예시는 다음과 같습니다. Benefits [ˈbɛnɪfɪts] : 혜택\nLearning a new language has numerous benefits for personal growth.";
   }
   return assistantMessage;
 }
