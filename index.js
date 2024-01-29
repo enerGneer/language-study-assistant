@@ -53,6 +53,9 @@ function toggleLoading(show) {
 // 사용자 입력 처리
 async function processUserInput() {
   const userInput = inputText.value;
+  // 사용자 입력에서 개행 문자(\n) 제거
+  userInput = userInput.replace(/\n/g, "");
+
   if (!userInput) {
     toggleFloatingMessage("inputRequestMessage", true);
     return;
