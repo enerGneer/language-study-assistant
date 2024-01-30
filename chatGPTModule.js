@@ -13,10 +13,10 @@ async function getAssistantMessage(userInput) {
   const detectedLanguage = franc(userInput, { minLength: 3 });
   if (detectedLanguage === "jpn") {
     assistantMessage =
-      "이 문장에서 일본어 단어들만 따로 발췌해서 [일본어 단어 (히라가나) : 한국어 뜻 \n 예문\n \n ] 이런 양식으로 작성해주세요. 예문은 반드시 주어진 언어로 작성해주세요. 모든 예문은 주어진 텍스트를 그대로 발췌하지 말고 활용 사례를 작문해주세요. 예시는 다음과 같습니다. 学習 (がくしゅう) : 학습\n 私は毎日新しい言葉を学習しています。";
+      "Please extract only the Japanese words from this sentence and write them in the form of [Japanese word (hiragana) : Korean meaning \n example sentence].\n *Remarks on example sentences* 1. The example sentences must be written in Japanese only. 2. For all example sentences, Please do not use the given text as it is, but write your own examples. Examples are as follows. \n学習 (がくしゅう) : 학습\n 私は毎日新しい言葉を学習しています\n\n";
   } else {
     assistantMessage =
-      "이 문장에서 단어들만 따로 발췌해서 [단어 [발음기호] : 한국어 뜻 \n 예문\n \n ] 이런 양식으로 작성해주세요. 예문은 반드시 주어진 언어로 작성해주세요. 모든 예문은 주어진 텍스트를 그대로 발췌하지 말고 활용 사례를 작문해주세요. 예시는 다음과 같습니다. Benefits [ˈbɛnɪfɪts] : 혜택\nLearning a new language has numerous benefits for personal growth.";
+      "Please extract only words from the sentence and write them in the form of [word [phonetic symbol] : Korean meaning \n example sentence]. \n *Remarks on example sentences* 1. The example sentences must be written only in the same language as the words. 2. For all example sentences, please write a use case, not a direct excerpt of the given text. Examples are as follows. \nBenefits [ˈbɛnɪfɪts] : 혜택\nLearning a new language has numerous benefits for personal growth.\n\n";
   }
   return assistantMessage;
 }
@@ -33,7 +33,7 @@ export async function requestToChatGPT(userInput) {
         messages: [
           {
             role: "system",
-            content: "나는 언어 학습자입니다. 이 앱은 텍스트를 입력하면 단어만 따로 발췌해서 단어의 의미와, 주어진 언어로 작성된 예문을 작성해주는 기능을 갖고 있습니다. 예문 작성 시, 주어진 텍스트를 그대로 발췌하지 말고 활용 사례를 작문해주세요.",
+            content: "I'm a language learner. You do the following: a user enters text, you excerpt words from that text, and you tell me what those words mean, as well as example sentences written in the same language as the words.",
           },
           { role: "user", content: userInput },
           { role: "assistant", content: assistantMessage },

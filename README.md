@@ -6,3 +6,4 @@
 - Vanilla JavaScript
 - Node.js
 - AWS Lambda
+- Github Page & Github Actions
