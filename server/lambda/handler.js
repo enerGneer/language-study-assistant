@@ -1,13 +1,9 @@
-import dotenv from "dotenv";
-import { requestToChatGPT } from "./chatGPTModule.js"; // 모듈화된 함수 임포트
+import { processChatGPTRequest } from "../processChatGPTRequest.js"; // 변경된 모듈 경로
 
-dotenv.config();
-
-// ChatGPT와의 상호작용 Lambda 핸들러 함수
 export const handler = async (event) => {
   try {
     const userInput = JSON.parse(event.body).userInput;
-    const answer = await requestToChatGPT(userInput);
+    const answer = await processChatGPTRequest(userInput); // 변경된 함수 호출
     console.log("ChatGPT API 응답:", answer);
     return {
       statusCode: 200,

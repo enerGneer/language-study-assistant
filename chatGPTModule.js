@@ -4,7 +4,7 @@ import { franc } from "franc-min";
 
 dotenv.config();
 
-const apiKey = process.env.API_KEY;
+const apiKey = "process.env.API_KEY";
 const url = "https://api.openai.com/v1/chat/completions";
 
 // 언어 감지 및 어시스턴트 설정 함수
