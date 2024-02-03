@@ -2,9 +2,17 @@
 
 [KO](README.md) | JP
 
+[https://energneer.github.io/language-study-assistant/](https://energneer.github.io/language-study-assistant/)
+
+![./images/readme-image1.png](./images/readme-image1.png)
+
 ## プロジェクト概要
 
 Language Study Assistant は、言語学習を支援するウェブアプリケーションです。ユーザーが入力した文からキーワードを抽出し、これらの単語の意味と使用例を提供することで、言語学習プロセスを簡素化し、効率化します。本プロジェクトは AWS Lambda を用いたサーバーレスのバックエンドアーキテクチャ、GitHub Pages によるフロントエンドのデプロイ、そして GitHub Actions を利用した CI/CD パイプラインの構築を特徴としています。
+
+## プロジェクトを始めたきっかけ
+
+普段日本語と英語の学習に取り組んでおり、天声人語や CNN ニュースを活用しています。しかし、一つ一つの単語や（特に日本語の）発音を調べる作業が手間だと感じました。そこで、Chat GPT に単語の意味や発音をリクエストしたところ、非常に満足のいく結果が得られました。特に、Papago のように細かい単語が全て表示されないため、単語を選ぶ手間がほとんどかかりませんでした。これだ！と感じ、すぐにトイプロジェクトを開始しました。追加機能を検討中、妹の提案を受けて、例文提供機能も追加しました。今後は自己満足のためにさらに多くの機能を追加し、React と TypeScript に移行したいと考えています。
 
 ## 機能紹介
 
