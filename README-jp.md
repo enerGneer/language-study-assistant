@@ -30,6 +30,14 @@ Language Study Assistant は、言語学習を支援するウェブアプリケ�
 - **入力中の言語の表示**: franc-min ライブラリを使用して、現在入力中の言語を自動検出し、表示します。言語検出に失敗した場合、API 呼び出しを行わないようにします。
 - **結果共有機能の追加**: ユーザーが結果を容易に共有できるよう、共有ボタンを設置します。
 
+## 技術スタック
+
+- **Backend**: Node.js, AWS Lambda
+- **Frontend**: HTML, Tailwind CSS, JavaScript
+- **Deployment**: GitHub Pages, AWS Lambda
+- **CI/CD**: GitHub Actions
+- **Other Libraries**: Axios, franc-min, dotenv
+
 ## インストールおよび実行方法
 
 ### ローカル環境での実行

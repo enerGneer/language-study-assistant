@@ -32,7 +32,7 @@ Language Study Assistant는 언어 학습을 위한 웹 애플리케이션입니
 - **현재 입력 중인 언어 표시**: franc-min 라이브러리를 사용해 현재 입력 중인 언어를 자동으로 감지하고 표시합니다. 언어 감지가 실패한 경우, 사용자가 API 호출을 시도하지 않도록 합니다.
 - **결과 공유 기능**: 사용자가 결과를 쉽게 공유할 수 있도록 공유 버튼을 추가합니다.
 
-## 技術スタック
+## 기술 스택
 
 - **Backend**: Node.js, AWS Lambda
 - **Frontend**: HTML, Tailwind CSS, JavaScript
