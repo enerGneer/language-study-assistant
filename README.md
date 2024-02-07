@@ -1,38 +1,36 @@
 # Language Study Assistant
 
-KO | [JP](README-jp.md)
+[KO](README.md) | JP
 
 [https://energneer.github.io/language-study-assistant/](https://energneer.github.io/language-study-assistant/)
 
 ![./images/readme-image1.png](./images/readme-image1.png)
 
-## 프로젝트 개요
+## プロジェクト概要
 
-Language Study Assistant는 언어 학습을 위한 웹 애플리케이션입니다. 사용자가 입력한 문장에서 핵심 단어를 추출하고, 이 단어들의 의미와 사용 예문을 제공하여 언어 학습 과정을 간소화하고 효율화합니다. 이 프로젝트는 AWS Lambda를 활용한 서버리스 백엔드 아키텍처와 GitHub Pages를 통한 프론트엔드 배포, 그리고 GitHub Actions를 이용한 CI/CD 파이프라인 구축을 특징으로 합니다.
+Language Study Assistant は、言語学習を支援するウェブアプリケーションです。ユーザーが入力した文からキーワードを抽出し、これらの単語の意味と使用例を提供することで、言語学習プロセスを簡素化し、効率化します。本プロジェクトは AWS Lambda を用いたサーバーレスのバックエンドアーキテクチャ、GitHub Pages によるフロントエンドのデプロイ、そして GitHub Actions を利用した CI/CD パイプラインの構築を特徴としています。
 
-## 프로젝트를 시작하게 된 계기
+## プロジェクトを始めたきっかけ
 
-평소에 일어와 영어 공부를 할 때 천성인어와 CNN 뉴스를 활용하고 있었는데, 하나하나의 단어와 뜻, 특히 일본어의 경우 발음을 찾는 작업이 번거로웠습니다. 그러던 와중 우연히 Chat GPT를 이용하여 단어의 뜻과 독음을 알려달라고 요청했더니 결과가 매우 만족스러웠습니다. 특히, 파파고와 달리 세세한 단어까지 모두 표시되지 않아 단어를 골라내는 번거로움이 거의 없었습니다. 이거다! 싶어서 바로 토이 프로젝트를 시작하게 되었습니다. 추가 기능을 고민하던 중 동생의 의견을 반영하여 예문을 알려주는 기능도 추가했습니다. 앞으로도 자기만족용으로 더 많은 기능을 추가하고자 하며, React와 TypeScript로 마이그레이션하려고 합니다.
+普段日本語と英語の学習に取り組んでおり、天声人語や CNN ニュースを活用しています。しかし、一つ一つの単語や（特に日本語の）発音を調べる作業が手間だと感じました。そこで、Chat GPT に単語の意味や発音をリクエストしたところ、非常に満足のいく結果が得られました。特に、Papago のように細かい単語が全て表示されないため、単語を選ぶ手間がほとんどかかりませんでした。これだ！と感じ、すぐにトイプロジェクトを開始しました。追加機能を検討中、妹の提案を受けて、例文提供機能も追加しました。今後は自己満足のためにさらに多くの機能を追加し、React と TypeScript に移行したいと考えています。
 
-## 기능 소개
+## 機能紹介
 
-- **언어 자동 감지**: franc-min 라이브러리를 사용하여 사용자 입력에서 언어를 자동으로 감지합니다. 이를 통해 해당 언어에 맞는 처리를 수행합니다.
-- **핵심 단어 추출 및 의미 제공**: 입력된 문장에서 핵심 단어를 추출하고, 해당 단어의 발음기호 및 의미를 제공합니다.
-- **사용 예문 제공**: 각 핵심 단어에 대해 사용 예문을 제공함으로써, 단어가 실제 문장에서 어떻게 쓰이는지를 이해할 수 있습니다.
-- **다국어 지원**: 다양한 언어의 문장을 처리할 수 있으며, 사용자에게는 감지된 언어에 맞는 응답을 제공합니다.
+- **言語自動検出**: franc-min ライブラリを用いてユーザーの入力から言語を自動で検出します。これにより該当する言語に適した処理を実行します。
+- **キーワード抽出および意味提供**: 入力された文からキーワードを抽出し、それらの単語の発音記号及び意味を提供します。
+- **使用例提供**: 各キーワードに対して使用例を提供し、単語が実際の文中でどのように使用されるかを理解できるようにします。
+- **多言語対応**: 様々な言語の文を処理可能で、ユーザーには検出された言語に合わせたレスポンスを提供します。
 
-## 개선 예정 사항
+## 改善予定事項
 
-[**Project Dashboard**](https://energneer.notion.site/Project-Dashboard-bac02eb446244eebb70dc36f207b4c74)
+- **多言語対応の強化**: ユーザーのブラウザ言語を自動検出し、その言語でページと API レスポンスを提供するよう条件分岐を追加します。
+- **ローディングインジケータの変更**: 現在円形のローディングインジケータを使用していますが、これを進行状況バーに変更することで、作業が進行中であることをユーザーにより明確に伝えます。
+- **入力可能文字数の表示**: ユーザーがさらに入力できる文字数を知らせる UI を追加します。
+- **モバイル UI の最適化**: モバイルユーザーの体験向上のため、マージンやレイアウトを調整します。
+- **入力中の言語の表示**: franc-min ライブラリを使用して、現在入力中の言語を自動検出し、表示します。言語検出に失敗した場合、API 呼び出しを行わないようにします。
+- **結果共有機能の追加**: ユーザーが結果を容易に共有できるよう、共有ボタンを設置します。
 
-- **다국어 지원**: 사용자의 브라우저 언어를 자동으로 감지하여, 해당 언어로 페이지와 API 응답을 제공하도록 조건문을 추가합니다.
-- **로딩 인디케이터 변경**: 현재는 원형 로딩 인디케이터를 사용하여 서버 응답 대기 시간이 길게 느껴질 수 있습니다. 이를 진행 상태를 보여주는 진행바로 변경하여 사용자가 작업이 진행 중임을 더 명확히 인지할 수 있도록 할 예정입니다.
-- **입력 가능한 남은 글자 수 표시**: 사용자가 몇 글자를 더 입력할 수 있는지 알려주는 UI 요소를 추가할 예정입니다.
-- **모바일 UI 최적화**: 모바일 사용자 경험을 개선하기 위해 마진과 레이아웃을 조정합니다.
-- **현재 입력 중인 언어 표시**: franc-min 라이브러리를 사용해 현재 입력 중인 언어를 자동으로 감지하고 표시합니다. 언어 감지가 실패한 경우, 사용자가 API 호출을 시도하지 않도록 합니다.
-- **결과 공유 기능**: 사용자가 결과를 쉽게 공유할 수 있도록 공유 버튼을 추가합니다.
-
-## 기술 스택
+## 技術スタック
 
 - **Backend**: Node.js, AWS Lambda
 - **Frontend**: HTML, Tailwind CSS, JavaScript
@@ -40,61 +38,61 @@ Language Study Assistant는 언어 학습을 위한 웹 애플리케이션입니
 - **CI/CD**: GitHub Actions
 - **Other Libraries**: Axios, franc-min, dotenv
 
-## 설치 및 실행 방법
+## インストールおよび実行方法
 
-### 로컬 환경에서 실행하기
+### ローカル環境での実行
+
+プロジェクトをローカル環境で実行する方法については、具体的なステップが記載されていません。以下は一般的な Node.js プロジェクトの実行手順です。
 
 ```bash
-git clone https://github.com/yourusername/gpt-language-learning.git
-cd gpt-language-learning
+# プロジェクトのクローン
+git clone https://github.com/yourusername/language-study-assistant.git
+cd language-study-assistant
+
+# 依存関係のインストール
 npm install
+
+# アプリケーションの実行
 npm start
 ```
 
-### AWS Lambda 설정
+### AWS Lambda の設定
 
-AWS Lambda 함수를 생성하고, `handler.js`를 기반으로 함수를 설정합니다. 함수 배포 과정을 위해 root에 `lambdaHandler.js` 파일을 두어 `handler.js`를 호출합니다.
+AWS Lambda 関数を作成し、`handler.js`をベースに関数を設定します。関数のデプロイプロセスのために、ルートディレクトリに`lambdaHandler.js`ファイルを配置し、`handler.js`を呼び出します。
 
-### GitHub Actions를 이용한 CI/CD
+### GitHub Actions による CI/CD
 
-`deploy.yml` 파일을 `.github/workflows/` 디렉토리에 추가하여 Main 브랜치에 변경 사항이 push될 때마다 프론트엔드가 자동으로 빌드되고 GitHub Pages로 배포됩니다.
+`deploy.yml`ファイルを`.github/workflows/`ディレクトリに追加し、Main ブランチに変更がプッシュされるたびにフロントエンドが自動的にビルドされ、GitHub Pages にデプロイされるようにします。
 
-## 사용 예시 및 코드 스니펫
+## 使用例およびコードスニペット
 
-### 언어 감지 - franc-min
+言語検出や AWS Lambda のハンドラー関数、GitHub Actions による自動デプロイに関する具体的なコードスニペットが記載されていません。以下は、これらの機能を実装する際の一般的なアイデアを示す架空のコードスニペットです。
+
+### 言語検出
 
 ```javascript
-import { franc } from "franc-min";
-
-export const detectLanguage = (text) => {
-  const detectedLanguage = franc(text, { minLength: 3 });
-  return detectedLanguage;
+// francライブラリを使用して言語を検出する関数
+const detectLanguage = (text) => {
+  const franc = require("franc");
+  return franc(text);
 };
 ```
 
-### AWS Lambda - 핸들러 함수
+### AWS Lambda - ハンドラー関数
 
 ```javascript
-export const handler = async (event) => {
-  try {
-    const userInput = JSON.parse(event.body).userInput;
-    const answer = await processChatGPTRequest(userInput);
-    console.log("ChatGPT API 응답:", answer);
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ answer }),
-    };
-  } catch (error) {
-    console.error("ChatGPT API 요청 실패:", error.message);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "ChatGPT API 요청 실패" }),
-    };
-  }
+// AWS Lambdaでのハンドラー関数の例
+exports.handler = async (event) => {
+  const detectedLanguage = detectLanguage(event.text);
+  // ロジックの実装...
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ message: "Success", language: detectedLanguage }),
+  };
 };
 ```
 
-### GitHub Actions - 배포 자동화
+### GitHub Actions - 自動デプロイ
 
 ```yaml
 name: Deploy to GitHub Pages
@@ -123,34 +121,36 @@ jobs:
           publish_dir: ./public
 ```
 
-## 프로젝트 구조
+## プロジェクト構造
+
+プロジェクト構造についての具体的な説明はありませんが、一般的なプロジェクトのディレクトリ構造を想定して以下に示します。
 
 ```
 language-study-assistant/
 ├── .github/
 │   └── workflows/
-│       └── deploy-to-gh-pages.yml  # GitHub Actions 설정 파일
+│       └── deploy-to-gh-pages.yml  # GitHub Actionsの設定ファイル
 ├── public/
-│   ├── index.html                 # 웹 페이지의 HTML 파일
-│   ├── main.js                    # 웹 페이지의 주요 JavaScript 파일
-│   └── style.css                  # 최종 웹 페이지의 스타일을 정의하는 CSS 파일
+│   ├── index.html                 # ウェブページのHTMLファイル
+│   ├── main.js                    # ウェブページのメインJavaScriptファイル
+│   └── style.css                  # ウェブページのスタイルを定義するCSSファイル
 ├── server/
-│   ├── chatGPTModule.js           # ChatGPT 모듈 (언어 감지 및 메시지 포맷팅 기능 포함)
-│   ├── languageDetection.js        # 언어 감지 모듈
-│   ├── messageFormatting.js        # 메시지 포맷팅 모듈
-│   ├── processChatGPTRequest.js   # ChatGPT API 요청 처리 모듈
-│   ├── server.js                  # 개발용 Express 서버
+│   ├── chatGPTModule.js           # ChatGPTモジュール（言語検出およびメッセージフォーマット機能含む）
+│   ├── languageDetection.js       # 言語検出モジュール
+│   ├── messageFormatting.js       # メッセージフォーマットモジュール
+│   ├── processChatGPTRequest.js   # ChatGPT APIリクエスト処理モジュール
+│   ├── server.js                  # 開発用のExpressサーバー
 │   └── lambda/
-│       └── handler.js             # AWS Lambda 핸들러 함수
+│       └── handler.js             # AWS Lambdaハンドラ関数
 ├── src/
 │   ├── dev/
-│   │   ├── input.css              # TailwindCSS로 스타일링된 입력 UI용 CSS 파일
-│   │   └── output.css             # TailwindCSS로 스타일링된 결과 UI용 CSS 파일
+│   │   ├── input.css              # TailwindCSSを使用した入力UI用のCSSファイル
+│   │   └── output.css             # TailwindCSSを使用した結果UI用のCSSファイル
 │   ├── utils/
-│   │   ├── inputHandlers.js       # 입력 UI 이벤트 핸들링 및 처리 모듈
-│   │   └── uiUtils.js             # 사용자 인터페이스(UI) 관련 유틸리티 함수 모듈
-├── .env                            # 환경 설정 파일
-├── package.json                    # npm 설정 파일
-└── README.md                       # 프로젝트 설명
+│   │   ├── inputHandlers.js       # 入力UIイベントのハンドリングと処理モジュール
+│   │   └── uiUtils.js             # ユーザーインターフェース（UI）関連のユーティリティ関数モジュール
+├── .env                            # 環境設定ファイル
+├── package.json                    # npm設定ファイル
+└── README.md                       # プロジェクト説明
 
 ```
