@@ -7,8 +7,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "css": "npx tailwindcss -i ./src/input.css -o ./src/output.css --watch",
-    "build-css": "npx postcss ./src/input.css -o ./src/output.css",
+    "css": "npx tailwindcss -i ./src/dev/input.css -o ./src/dev/output.css --watch",
+    "build-css": "npx postcss ./src/dev/input.css -o ./src/dev/output.css",
     "start": "nodemon server.js"
   },
   "author": "enerG",
