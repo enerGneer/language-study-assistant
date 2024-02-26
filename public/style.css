@@ -459,8 +459,8 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .h-8 {
   height: 2rem;
 }
-.min-h-44 {
-  min-height: 11rem;
+.min-h-80 {
+  min-height: 20rem;
 }
 .min-h-full {
   min-height: 100%;
