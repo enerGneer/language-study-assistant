@@ -133,7 +133,8 @@ button {
 2. Remove default button styles.
 */
 
-button {
+button,
+[type="button"] {
   -webkit-appearance: button; /* 1 */
   background-color: transparent; /* 2 */
   background-image: none; /* 2 */
