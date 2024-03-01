@@ -6,8 +6,10 @@
     <title>Language Study Assistant</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="../src/dev/output.css" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   </head>
-  <body class="bg-gray-100">
+
+  <body class="bg-gray-100 p-3">
     <div id="loading" class="fixed inset-0 hidden z-10 bg-gray-500 bg-opacity-75" aria-labelledby="loading" role="dialog" aria-modal="true">
       <div class="flex min-h-full items-center justify-center">
         <div class="relative my-6 sm:my-8 transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl sm:p-6 sm:pb-4">
@@ -36,13 +38,13 @@
       </div>
     </div>
 
-    <header class="flex flex-col max-w-7xl mx-auto h-64 justify-center">
-      <h1 class="text-5xl font-extrabold m-3">Language Study Assistant</h1>
-      <h2 class="text-xl text-sky-500 font-semibold m-3 pl-3 border-l-4 border-sky-500 border-opacity-90">문장에서 단어를 추출하여 의미와 예문을 알려드리는 언어 학습 도움 툴입니다.</h2>
+    <header class="flex flex-col max-w-7xl mx-auto sm:h-64 h-72 justify-center">
+      <h1 class="text-5xl font-extrabold m-3 px-5 sm:px-0 text-center sm:text-left my-6">Language Study Assistant</h1>
+      <h2 class="sm:text-xl text-lg text-sky-500 font-semibold m-3 pl-3 border-l-4 border-sky-500 border-opacity-90">문장에서 단어를 추출하여 의미와 예문을 알려주는 언어 학습 도움 툴입니다.</h2>
     </header>
 
     <main>
-      <div class="grid grid-cols-1 md:grid-cols-2 items-start max-w-7xl justify-center mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 items-start max-w-7xl justify-center mx-auto pb-4">
         <section class="bg-white flex flex-col m-3 rounded-lg shadow-xl shadow-slate-200 min-h-80">
           <div class="flex-none h-28 flex flex-col justify-center border-b border-gray-200 pl-7">
             <h2 class="text-3xl font-extrabold text-slate-800 mb-2">Step 1. 입력하기</h2>
