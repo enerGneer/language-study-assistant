@@ -4,7 +4,7 @@ export function initialize() {
 }
 
 export function adjustTextareaHeight(textarea) {
-  textarea.style.height = "auto";
+  textarea.style.height = "112px";
   textarea.style.height = `${textarea.scrollHeight}px`;
 }
 
