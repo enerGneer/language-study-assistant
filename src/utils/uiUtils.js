@@ -1,6 +1,5 @@
 export function initialize() {
   const textarea = document.getElementById("inputText");
-  textarea.style.height = "112px";
   adjustTextareaHeight(textarea);
 }
 
