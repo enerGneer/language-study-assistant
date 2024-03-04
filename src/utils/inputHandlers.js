@@ -22,7 +22,7 @@ export async function processUserInput() {
 
   toggleLoading(true);
   try {
-    const url = "http://localhost:3000/chat";
+    const url = "https://api.openai.com/v1/chat/completions";
     const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
