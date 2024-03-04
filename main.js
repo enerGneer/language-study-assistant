@@ -1,5 +1,5 @@
-import { adjustTextareaHeight, initialize } from "language-study-assistant/src/utils/uiUtils.js";
-import { copyResultToClipboard, processUserInput } from "language-study-assistant/src/utils/inputHandlers.js";
+import { adjustTextareaHeight, initialize } from "/language-study-assistant/src/utils/uiUtils.js";
+import { copyResultToClipboard, processUserInput } from "/language-study-assistant/src/utils/inputHandlers.js";
 
 const processButton = document.getElementById("processButton");
 const copyButton = document.getElementById("copyButton");
