@@ -22,7 +22,7 @@ export async function processUserInput() {
 
   toggleLoading(true);
   try {
-    const url = "https://api.openai.com/v1/chat/completions";
+    const url = "https://altaj32ltsje245bwsrj7jnxgm0iuyks.lambda-url.ap-northeast-1.on.aws/";
     const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
