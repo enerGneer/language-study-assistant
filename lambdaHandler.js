@@ -1,5 +1,5 @@
-import { handler } from "./server/lambda/handler.js";
+import { handler as serverHandler } from "./server/lambda/handler.js";
 
 export const handler = async (event) => {
-  return handler(event);
+  return serverHandler(event);
 };
