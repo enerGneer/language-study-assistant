@@ -133,7 +133,8 @@ button {
 2. Remove default button styles.
 */
 
-button {
+button,
+[type="button"] {
   -webkit-appearance: button; /* 1 */
   background-color: transparent; /* 2 */
   background-image: none; /* 2 */
@@ -459,8 +460,8 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 .h-8 {
   height: 2rem;
 }
-.min-h-44 {
-  min-height: 11rem;
+.min-h-80 {
+  min-height: 20rem;
 }
 .min-h-full {
   min-height: 100%;
