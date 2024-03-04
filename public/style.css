@@ -908,12 +908,8 @@ html,
   height: 2rem;
 }
 
-.h-40 {
-  height: 10rem;
-}
-
-.min-h-80 {
-  min-height: 20rem;
+.min-h-40 {
+  min-height: 10rem;
 }
 
 .min-h-full {
